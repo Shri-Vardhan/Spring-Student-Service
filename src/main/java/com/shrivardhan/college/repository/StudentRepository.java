@@ -31,15 +31,19 @@ public class StudentRepository {
         return jdbcTemplate.update(sql, student.getId(), student.getName(), student.getAge());
     }
 
-    public int updateName(Long id, String name) {
-        String sql = "UPDATE student SET name = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, name, id);
-    }
-
     public int deleteById(Long id) {
         String sql = "DELETE FROM STUDENT WHERE id = ?";
         return jdbcTemplate.update(sql, id);
     }
 
+    public boolean existsById(Long id) {
+        String sql = "SELECT 1 FROM student WHERE id = ?";
+        List<Integer> result = jdbcTemplate.query(
+                sql,
+                (rs, rowNum) -> rs.getInt(1),
+                id
+        );
+        return !result.isEmpty();
+    }
 }
 

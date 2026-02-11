@@ -18,12 +18,13 @@ public class StudentService {
         return repository.findAll();
     }
 
-    public void insertStudent(Student student) {
-        repository.save(student);
-    }
-
-    public void updateStudentName(Long id, String name) {
-        repository.updateName(id, name);
+    public int insertStudent(Student student) {
+        if(repository.existsById(student.getId())){
+            throw new RuntimeException("Student already exists");
+        }
+        else{
+            return repository.save(student);
+        }
     }
 
     public void deleteStudent(long id) {
