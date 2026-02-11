@@ -15,8 +15,8 @@ public class Insertstudent {
     }
 
     @PostMapping
-    public String createStudent(@RequestBody Student student) {
-        studentService.createStudent(student);
+    public String insertStudent(@RequestBody Student student) {
+        studentService.insertStudent(student);
         return "Student created successfully";
     }
 }
