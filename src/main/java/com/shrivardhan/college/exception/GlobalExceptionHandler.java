@@ -18,13 +18,13 @@ public class GlobalExceptionHandler {
 
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
-                HttpStatus.NOT_FOUND.value(),
-                HttpStatus.NOT_FOUND.name(),
+                HttpStatus.CONFLICT.value(),
+                HttpStatus.CONFLICT.name(),
                 ex.getMessage(),
                 request.getRequestURI()
         );
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
+                .status(HttpStatus.CONFLICT)
                 .body(error);
     }
 
