@@ -1,5 +1,6 @@
 package com.shrivardhan.college.service;
 
+import com.shrivardhan.college.exception.StudentAlreadyExistsException;
 import com.shrivardhan.college.model.Student;
 import com.shrivardhan.college.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,9 @@ public class StudentService {
     }
 
     public int insertStudent(Student student) {
-        if(repository.existsById(student.getId())){
-            throw new RuntimeException("Student already exists");
-        }
-        else{
+        if (repository.existsById(student.getId())) {
+            throw new StudentAlreadyExistsException("Student with ID " + student.getId() + " already exists");
+        } else {
             return repository.save(student);
         }
     }
