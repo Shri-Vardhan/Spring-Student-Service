@@ -1,6 +1,7 @@
 package com.shrivardhan.college.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,5 +28,30 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.CONFLICT)
                 .body(error);
     }
+
+    @ExceptionHandler(DataAccessResourceFailureException.class)
+    public ResponseEntity<ErrorResponse> handleDatabaseConnectionFailure(
+            DataAccessResourceFailureException ex,
+            HttpServletRequest request) {
+
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.SERVICE_UNAVAILABLE.value(),
+                HttpStatus.SERVICE_UNAVAILABLE.name(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(error);
+    }
+
+ /*
+    @ExceptionHandler(DataAccessResourceFailureException.class)
+    public ResponseEntity<String> handleDatabaseConnectionFailure(DataAccessResourceFailureException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Cannot connect to DB");
+    }
+    */
+
 
 }
