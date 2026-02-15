@@ -24,7 +24,7 @@ public class Studentcontroller {
     public String getAllStudents(Model model){
         List<Student> students = studentService.getStudents();
         model.addAttribute("students", students);
-        return "students";   // refers to test.html
+        return "students";   // refers to students.html
     }
 
 }
