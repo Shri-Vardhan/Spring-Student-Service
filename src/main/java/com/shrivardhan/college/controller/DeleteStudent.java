@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/deletestudents")
-public class Deletestudent {
+public class DeleteStudent {
 
     private final StudentService studentService;
 
-    public Deletestudent(StudentService studentService) {
+    public DeleteStudent(StudentService studentService) {
         this.studentService = studentService;
     }
 
