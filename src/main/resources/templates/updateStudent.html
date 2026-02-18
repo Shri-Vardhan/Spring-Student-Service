@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Edit Student</h2>
+
+<label>ID:</label>
+<input id="sid" readonly><br>
+
+<label>Name:</label>
+<input id="sname"><br>
+
+<label>Email:</label>
+<input id="semail"><br>
+
+<button onclick="updateStudent()">Update</button>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const studentId = urlParams.get('id');
+
+    loadStudent(studentId);
+
+    function loadStudent(id) {
+        fetch('/api/students/' + id)
+          .then(res => res.json())
+          .then(s => {
+              document.getElementById("sid").value = s.id;
+              document.getElementById("sname").value = s.name;
+              document.getElementById("semail").value = s.email;
+          });
+    }
+
+    function updateStudent() {
+        const student = {
+            id: document.getElementById("sid").value,
+            name: document.getElementById("sname").value,
+            email: document.getElementById("semail").value
+        };
+
+        fetch('/api/students/' + student.id, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(student)
+        })
+        .then(res => res.text())
+        .then(msg => alert("Student Updated"));
+    }
+</script>
+</body>
+</html>

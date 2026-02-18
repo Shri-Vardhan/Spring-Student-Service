@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/viewStudents")
+@RequestMapping("/api/viewStudents")
 public class ViewStudent {
 
     private final StudentService studentService;
@@ -24,5 +24,3 @@ public class ViewStudent {
     }
 
 }
-
-

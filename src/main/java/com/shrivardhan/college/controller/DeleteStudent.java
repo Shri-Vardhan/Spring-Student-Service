@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/deleteStudent")
+@RequestMapping("/api/deleteStudent")
 public class DeleteStudent {
 
     private final StudentService studentService;
@@ -21,4 +21,3 @@ public class DeleteStudent {
         studentService.deleteStudent(id);
     }
 }
-
