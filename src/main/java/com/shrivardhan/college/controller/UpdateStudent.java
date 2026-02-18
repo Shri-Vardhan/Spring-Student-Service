@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/updatename")
-public class updateName {
+@RequestMapping("/updateStudent")
+public class UpdateStudent {
     @Autowired
     private StudentService service;
     @PutMapping("/{id}")
-    public String updateName(
+    public String UpdateStudent(
             @PathVariable Long id,
             @RequestParam String name) {
         service.updateStudentName(id, name);

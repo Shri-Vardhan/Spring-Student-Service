@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
-public class ViewStudents {
+@RequestMapping("/viewStudents")
+public class ViewStudent {
 
     private final StudentService studentService;
-    public ViewStudents(StudentService studentService){
+    public ViewStudent(StudentService studentService){
         this.studentService = studentService;
     }
 
