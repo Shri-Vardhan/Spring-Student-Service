@@ -27,6 +27,10 @@ public class StudentService {
         }
     }
 
+    public void updateStudentName(Long id, String name){
+        repository.updateName(id , name);
+    }
+
     public void deleteStudent(long id) {
         repository.deleteById(id);
     }

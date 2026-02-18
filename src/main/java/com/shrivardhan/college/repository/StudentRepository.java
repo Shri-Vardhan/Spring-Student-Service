@@ -36,6 +36,11 @@ public class StudentRepository {
         return jdbcTemplate.update(sql, id);
     }
 
+    public int updateName(Long id, String name) {
+        String sql = "UPDATE STUDENT SET name = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, name, id);
+    }
+
     public boolean existsById(Long id) {
         String sql = "SELECT 1 FROM student WHERE id = ?";
         List<Integer> result = jdbcTemplate.query(
