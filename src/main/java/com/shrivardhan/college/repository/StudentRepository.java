@@ -26,6 +26,22 @@ public class StudentRepository {
         );
     }
 
+    public Student getStudent(Long id) {
+        String sql = "SELECT id, name, age FROM student WHERE id = ?";
+
+        return jdbcTemplate.queryForObject(
+                sql,
+                (rs, rowNum) -> {
+                    Student s = new Student();
+                    s.setId(rs.getLong("id"));
+                    s.setName(rs.getString("name"));
+                    s.setAge(rs.getInt("age"));
+                    return s;
+                },
+                id
+        );
+    }
+
     public int save(Student student) {
         String sql = "INSERT INTO STUDENT (id, name, age) VALUES (?, ?, ?)";
         return jdbcTemplate.update(sql, student.getId(), student.getName(), student.getAge());
@@ -50,5 +66,7 @@ public class StudentRepository {
         );
         return !result.isEmpty();
     }
+
+
 }
 
