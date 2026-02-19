@@ -4,9 +4,7 @@ import com.shrivardhan.college.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class WebUpdateStudent {
@@ -14,8 +12,9 @@ public class WebUpdateStudent {
     @Autowired
     private StudentService service;
 
-    @GetMapping("/web/updateStudent")
-    public String showUpdateForm() {
+    @GetMapping("/web/updateStudent/{id}")
+    public String showUpdateForm(@PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
         return "updateStudent";
     }
 
@@ -27,4 +26,5 @@ public class WebUpdateStudent {
         service.updateStudentName(id, name);
         return "update";
     }
+
 }

@@ -2,53 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Student</title>
 </head>
+
 <body>
-<h2>Edit Student</h2>
 
-<label>ID:</label>
-<input id="sid" readonly><br>
+<div class="card">
+    <h2>Edit Student</h2>
 
-<label>Name:</label>
-<input id="sname"><br>
+    <label>ID</label>
+    <input id="sid" readonly>
 
-<label>Email:</label>
-<input id="semail"><br>
+    <label>Name</label>
+    <input id="sname" placeholder="Enter new name">
 
-<button onclick="updateStudent()">Update</button>
+    <button onclick="updateStudent()">Update</button>
+</div>
 
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const studentId = urlParams.get('id');
+    const pathParts = window.location.pathname.split("/");
+    const studentId = pathParts[pathParts.length - 1];
 
     loadStudent(studentId);
 
     function loadStudent(id) {
-        fetch('/api/students/' + id)
-          .then(res => res.json())
-          .then(s => {
-              document.getElementById("sid").value = s.id;
-              document.getElementById("sname").value = s.name;
-              document.getElementById("semail").value = s.email;
-          });
-    }
-
-    function updateStudent() {
-        const student = {
-            id: document.getElementById("sid").value,
-            name: document.getElementById("sname").value,
-            email: document.getElementById("semail").value
-        };
-
-        fetch('/api/students/' + student.id, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(student)
-        })
-        .then(res => res.text())
-        .then(msg => alert("Student Updated"));
+        fetch('/api/GetStudent/' + id)
+            .then(res => res.json())
+            .then(s => {
+                document.getElementById("sid").value = s.id;
+                document.getElementById("sname").value = s.name;
+            })
+            .catch(err => alert("Student not found"));
     }
 </script>
+
 </body>
 </html>

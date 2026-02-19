@@ -10,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/viewStudents")
-public class ViewStudent {
+public class ViewStudents {
 
     private final StudentService studentService;
-    public ViewStudent(StudentService studentService){
+    public ViewStudents(StudentService studentService){
         this.studentService = studentService;
     }
 

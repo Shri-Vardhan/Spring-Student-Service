@@ -35,4 +35,8 @@ public class StudentService {
         repository.deleteById(id);
     }
 
+    public Student retrieveStudent(long id) {
+        return repository.getStudent(id);
+    }
+
 }
