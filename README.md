@@ -1,4 +1,10 @@
+Student Management System
+-------------------------
+-------------------------
+
 System Architecture
+-------------------
+
 Browser (HTML + Thymeleaf + JavaScript)
 ↓
 Web Controllers
@@ -9,10 +15,12 @@ Service Layer
 ↓
 Database
 
+------------------------------------------------------------
+
 Complete Application Flow
+-------------------------
 
-RL:
-
+URL:
 /web/viewStudents
 
 Flow:
@@ -34,10 +42,12 @@ Thymeleaf → HTML Table
 Purpose:
 Displays all students in a tabular format using Thymeleaf.
 
-3.2 Insert Student Flow
+------------------------------------------------------------
+
+Insert Student Flow
+-------------------
 
 URL:
-
 /web/insertStudent
 
 Flow:
@@ -55,10 +65,12 @@ Success Response → UI
 Purpose:
 Creates a new student record using REST-based backend communication.
 
-3.3 Delete Student Flow
+------------------------------------------------------------
+
+Delete Student Flow
+-------------------
 
 URL:
-
 /web/deleteStudent
 
 Flow:
@@ -76,10 +88,12 @@ Deletion Confirmation → UI
 Purpose:
 Deletes a student record based on student ID.
 
-3.4 Update Student Flow (⚠️ Currently Not Working)
+------------------------------------------------------------
+
+Update Student Flow (Under Development)
+---------------------------------------
 
 URL:
-
 /web/updateStudent/{id}
 
 Intended Flow:
@@ -97,17 +111,21 @@ JS Fetch → PUT /api/updateStudent/{id}
 StudentService → Database
 
 Current Status:
-⚠️ Under Development — Not Functional at This Time
+Under Development — Not Functional
 
 Reason:
 
-Partial integration between frontend JavaScript Fetch API and backend REST update endpoint
+Partial integration between frontend JavaScript Fetch API and backend REST update endpoint.
+Request mapping and request body handling require refinement.
 
-Request mapping and request body handling still require refinement
+------------------------------------------------------------
 
 Current Feature Status
-Feature	Status
-View Students	✅ Implemented
-Insert Student	✅ Implemented
-Delete Student	✅ Implemented
-Update Student	⚠️ Under Development
+----------------------
+
+View Students — Implemented
+Insert Student — Implemented
+Delete Student — Implemented
+Update Student — Under Development
+
+------------------------------------------------------------
