@@ -20,6 +20,6 @@ public class InsertStudent {
     @PostMapping
     public String insertStudent(@RequestBody Student student) {
         studentService.insertStudent(student);
-        return "Student created successfully";
+        return "Student created successfully !!!!";
     }
 }

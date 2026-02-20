@@ -13,13 +13,14 @@ import java.util.List;
 public class ViewStudents {
 
     private final StudentService studentService;
-    public ViewStudents(StudentService studentService){
+
+    public ViewStudents(StudentService studentService) {
         this.studentService = studentService;
     }
 
 
     @GetMapping
-    public List<Student> getAll(){
+    public List<Student> getAll() {
         return studentService.getStudents();
     }
 

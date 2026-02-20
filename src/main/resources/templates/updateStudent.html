@@ -27,12 +27,33 @@
 
     function loadStudent(id) {
         fetch('/api/GetStudent/' + id)
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error("Not found");
+                return res.json();
+            })
             .then(s => {
                 document.getElementById("sid").value = s.id;
                 document.getElementById("sname").value = s.name;
             })
-            .catch(err => alert("Student not found"));
+            .catch(() => alert("Student not found"));
+    }
+
+    function updateStudent() {
+        const name = document.getElementById("sname").value;
+
+        fetch('/api/updateStudent/' + studentId, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(name)
+        })
+        .then(res => {
+            if (!res.ok) throw new Error("Update failed");
+            return res.text();
+        })
+        .then(msg => alert(msg))
+        .catch(() => alert("Update error"));
     }
 </script>
 

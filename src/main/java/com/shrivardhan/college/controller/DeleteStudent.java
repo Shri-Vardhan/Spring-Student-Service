@@ -1,7 +1,7 @@
 package com.shrivardhan.college.controller;
 
 import com.shrivardhan.college.service.StudentService;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +16,8 @@ public class DeleteStudent {
         this.studentService = studentService;
     }
 
-    @GetMapping("/{id}")
-    public void deleteStudent(@PathVariable int id) {
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
     }
 }
