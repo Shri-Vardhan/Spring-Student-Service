@@ -1,5 +1,6 @@
 spring:
   datasource:
+    url: jdbc:oracle:thin:@//192.168.0.120:1521/ORCLPDB
     username: dev_user
     password: dev_pass
     driver-class-name: oracle.jdbc.OracleDriver

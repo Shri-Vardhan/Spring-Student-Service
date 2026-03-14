@@ -14,7 +14,8 @@ public class DeleteStudent {
     }
 
     @GetMapping("/{id}")
-    public void deleteStudent(@PathVariable int id) {
+    public String deleteStudent(@PathVariable int id) {
         studentService.deleteStudent(id);
+        return "Student deleted successfully";
     }
 }
