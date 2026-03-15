@@ -31,8 +31,19 @@ public class StudentService {
         repository.updateName(id , name);
     }
 
-    public void deleteStudent(long id) {
+    /*public void deleteStudent(long id) {
         repository.deleteById(id);
+    }*/
+
+    public String deleteStudent(long id) {
+
+        int rowsAffected = repository.deleteById(id);
+
+        if (rowsAffected == 0) {
+            return "Student with ID " + id + " not found";
+        }
+
+        return "Student deleted successfully";
     }
 
     public Student retrieveStudent(long id) {

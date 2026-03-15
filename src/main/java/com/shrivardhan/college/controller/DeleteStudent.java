@@ -14,8 +14,25 @@ public class DeleteStudent {
     }
 
     @GetMapping("/{id}")
+    public String deleteStudent(@PathVariable long id) {
+        return studentService.deleteStudent(id);
+    }
+}
+
+/*
+@RestController
+@RequestMapping("/api/deleteStudent")
+public class DeleteStudent {
+
+    private final StudentService studentService;
+
+    public DeleteStudent(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+    @GetMapping("/{id}")
     public String deleteStudent(@PathVariable int id) {
         studentService.deleteStudent(id);
         return "Student deleted successfully";
     }
-}
+}*/
