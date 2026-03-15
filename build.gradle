@@ -19,11 +19,17 @@ java {
 }
 
 dependencies {
-    // Spring Boot Core
-    implementation 'org.springframework.boot:spring-boot-starter'
+    // Spring Boot Core (exclude default logging)
+    implementation('org.springframework.boot:spring-boot-starter') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    // Log4j2 (correct SLF4J binding)
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
     // Spring JDBC
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation('org.springframework.boot:spring-boot-starter-jdbc') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
     runtimeOnly 'com.oracle.database.jdbc:ojdbc11:23.3.0.23.09'
 
     // Testing

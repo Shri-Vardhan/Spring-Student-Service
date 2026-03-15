@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+
+        <!-- Console -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level [%t] %c{1} - %msg%n"/>
+        </Console>
+
+        <!-- File -->
+        <RollingFile name="FileLogger"
+                     fileName="logs/application.log"
+                     filePattern="logs/application-%d{yyyy-MM-dd}.log">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %c{1} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <!-- ================= DEV PROFILE ================= -->
+        <SpringProfile name="dev">
+            <Logger name="org.springframework" level="DEBUG"/>
+            <Logger name="com.shrivardhan.springboot" level="DEBUG" additivity="false">
+                <AppenderRef ref="Console"/>
+                <AppenderRef ref="FileLogger"/>
+            </Logger>
+
+            <Root level="DEBUG">
+                <AppenderRef ref="Console"/>
+            </Root>
+        </SpringProfile>
+
+        <!-- ================= DEFAULT PROFILE ================= -->
+        <SpringProfile name="default">
+            <Logger name="org.springframework" level="INFO"/>
+            <Logger name="com.shrivardhan.springboot" level="INFO" additivity="false">
+                <AppenderRef ref="Console"/>
+                <AppenderRef ref="FileLogger"/>
+            </Logger>
+
+            <Root level="INFO">
+                <AppenderRef ref="Console"/>
+            </Root>
+        </SpringProfile>
+
+        <!-- ================= PROD PROFILE ================= -->
+        <SpringProfile name="prod">
+            <Logger name="org.springframework" level="WARN"/>
+            <Logger name="com.shrivardhan.springboot" level="ERROR" additivity="false">
+                <AppenderRef ref="FileLogger"/>
+            </Logger>
+
+            <Root level="WARN">
+                <AppenderRef ref="FileLogger"/>
+            </Root>
+        </SpringProfile>
+
+    </Loggers>
+
+</Configuration>
