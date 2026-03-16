@@ -67,6 +67,9 @@ public class StudentRepository {
         return !result.isEmpty();
     }
 
-
+    public int updateStudent(Long id, String name, Integer age) {
+        String sql = "UPDATE STUDENT SET name = ?, age = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, name, age, id);
+    }
 }
 
