@@ -4,7 +4,6 @@ import com.shrivardhan.college.exception.StudentAlreadyExistsException;
 import com.shrivardhan.college.model.Student;
 import com.shrivardhan.college.repository.StudentRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -37,6 +36,10 @@ public class StudentService {
 
     public Student retrieveStudent(long id) {
         return repository.getStudent(id);
+    }
+
+    public void updateStudent(Long id, String name, Integer age) {
+        repository.updateStudent(id, name, age);
     }
 
 }

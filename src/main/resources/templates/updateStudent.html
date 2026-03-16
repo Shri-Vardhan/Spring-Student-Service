@@ -1,61 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Student</title>
+    <title>Update Student</title>
 </head>
-
 <body>
 
-<div class="card">
-    <h2>Edit Student</h2>
+<h2>Update Student</h2>
 
-    <label>ID</label>
-    <input id="sid" readonly>
+<div th:if="${student}">
+    <p><strong>ID:</strong> <span th:text="${student.id}"></span></p>
+    <p><strong>Name:</strong> <span th:text="${student.name}"></span></p>
+    <p><strong>Age:</strong> <span th:text="${student.age}"></span></p>
 
-    <label>Name</label>
-    <input id="sname" placeholder="Enter new name">
+    <hr/>
 
-    <button onclick="updateStudent()">Update</button>
+    <form th:action="@{/web/updateStudent/{id}(id=${student.id})}" method="post">
+
+        <label for="name">Name:</label><br/>
+        <input type="text" id="name" name="name" th:value="${student.name}" required /><br/><br/>
+
+        <label for="age">Age:</label><br/>
+        <input type="number" id="age" name="age" th:value="${student.age}" required /><br/><br/>
+
+        <button type="submit">Update</button>
+    </form>
+
+    <div th:if="${message}" th:text="${message}"></div>
 </div>
-
-<script>
-    const pathParts = window.location.pathname.split("/");
-    const studentId = pathParts[pathParts.length - 1];
-
-    loadStudent(studentId);
-
-    function loadStudent(id) {
-        fetch('/api/GetStudent/' + id)
-            .then(res => {
-                if (!res.ok) throw new Error("Not found");
-                return res.json();
-            })
-            .then(s => {
-                document.getElementById("sid").value = s.id;
-                document.getElementById("sname").value = s.name;
-            })
-            .catch(() => alert("Student not found"));
-    }
-
-    function updateStudent() {
-        const name = document.getElementById("sname").value;
-
-        fetch('/api/updateStudent/' + studentId, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(name)
-        })
-        .then(res => {
-            if (!res.ok) throw new Error("Update failed");
-            return res.text();
-        })
-        .then(msg => alert(msg))
-        .catch(() => alert("Update error"));
-    }
-</script>
 
 </body>
 </html>
