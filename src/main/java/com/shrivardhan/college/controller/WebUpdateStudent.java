@@ -48,8 +48,6 @@ public class WebUpdateStudent {
         model.addAttribute("student", student);
         return "updateStudent";
     }
-
-
     @PostMapping("/web/updateStudent/{id}")
     public String updateStudent(@PathVariable Long id,
                                 @RequestParam String name,
