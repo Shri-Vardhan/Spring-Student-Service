@@ -15,7 +15,9 @@ public class DeleteStudent {
 
     @GetMapping("/{id}")
     public String deleteStudent(@PathVariable int id) {
-        studentService.deleteStudent(id);
-        return "Student deleted successfully";
+        int status = studentService.deleteStudent(id);
+        return (status == 1)
+                ? "Student deleted successfully."
+                : "Failed to delete student record.";
     }
 }

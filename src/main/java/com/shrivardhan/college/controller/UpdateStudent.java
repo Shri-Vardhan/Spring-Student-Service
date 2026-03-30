@@ -27,7 +27,7 @@ import com.shrivardhan.college.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/updateStudent")
 public class UpdateStudent {
 
     private final StudentService studentService;
@@ -36,16 +36,12 @@ public class UpdateStudent {
         this.studentService = studentService;
     }
 
-    @GetMapping("/getStudent/{id}")
-    public Student getStudent(@PathVariable Long id) {
-        return studentService.retrieveStudent(id);
-    }
+    @PutMapping
+    public String updateStudent(@RequestBody Student student) {
+        int rowsAffected = studentService.updateStudent(student);
 
-    @PutMapping("/updateStudent/{id}")
-    public String updateStudent(@PathVariable Long id,
-                                @RequestParam String name,
-                                @RequestParam Integer age) {
-        studentService.updateStudent(id, name, age);
-        return "Updated successfully";
+        return (rowsAffected > 0)
+                ? "Student record updated successfully."
+                : "Student record not found.";
     }
 }
