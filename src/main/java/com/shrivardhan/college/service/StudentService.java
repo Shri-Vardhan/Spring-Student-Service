@@ -1,6 +1,7 @@
 package com.shrivardhan.college.service;
 
 import com.shrivardhan.college.exception.StudentAlreadyExistsException;
+import com.shrivardhan.college.exception.StudentNotFoundException;
 import com.shrivardhan.college.model.Student;
 import com.shrivardhan.college.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -30,16 +31,22 @@ public class StudentService {
         repository.updateName(id , name);
     }
 
-    public void deleteStudent(long id) {
-        repository.deleteById(id);
+    public int deleteStudent(long id) {
+        return repository.deleteById(id);
     }
 
     public Student retrieveStudent(long id) {
-        return repository.getStudent(id);
+        if (!repository.existsById(id)) {
+            throw new StudentNotFoundException(
+                    "Student with ID " + id + " not found"
+            );
+        } else {
+            return repository.getStudent(id);
+        }
     }
 
-    public void updateStudent(Long id, String name, Integer age) {
-        repository.updateStudent(id, name, age);
+    public int updateStudent(Student student) {
+        return repository.updateStudent(student);
     }
 
 }

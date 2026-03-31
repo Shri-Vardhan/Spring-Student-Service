@@ -19,7 +19,9 @@ public class InsertStudent {
 
     @PostMapping
     public String insertStudent(@RequestBody Student student) {
-        studentService.insertStudent(student);
-        return "Student created successfully !!!!";
+        int status = studentService.insertStudent(student);
+        return (status == 1)
+                ? "Student record created successfully."
+                : "Failed to create student record.";
     }
 }

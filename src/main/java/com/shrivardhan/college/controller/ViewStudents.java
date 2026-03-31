@@ -18,7 +18,6 @@ public class ViewStudents {
         this.studentService = studentService;
     }
 
-
     @GetMapping
     public List<Student> getAll() {
         return studentService.getStudents();
