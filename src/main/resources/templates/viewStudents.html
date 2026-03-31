@@ -1,11 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Students List</title>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #333;
+            color: white;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a, .pagination span {
+            margin: 0 10px;
+            padding: 8px 16px;
+        }
+
+        .pagination a {
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .disabled {
+            background: #ccc;
+            color: #666;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Students List</h2>
+<h1>Student List</h1>
 
 <table>
     <tr>
@@ -19,8 +72,27 @@
         <td th:text="${student.name}"></td>
         <td th:text="${student.age}"></td>
     </tr>
-
 </table>
+
+<div class="pagination">
+
+    <a th:if="${currentPage > 0}"
+       th:href="@{/web/viewStudents(page=${currentPage - 1})}">
+        Previous
+    </a>
+
+    <span>
+        Page <span th:text="${currentPage + 1}"></span>
+        of
+        <span th:text="${totalPages}"></span>
+    </span>
+
+    <a th:if="${currentPage + 1 < totalPages}"
+       th:href="@{/web/viewStudents(page=${currentPage + 1})}">
+        Next
+    </a>
+
+</div>
 
 </body>
 </html>

@@ -14,16 +14,31 @@ public class StudentRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Student> findAll() {
-        String sql = "SELECT id, name, age FROM student";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+    public List<Student> findAll(int offset, int size) {
+
+        String sql = """
+            SELECT id, name, age
+            FROM student
+            ORDER BY id
+            OFFSET ? ROWS
+            FETCH NEXT ? ROWS ONLY
+            """;
+
+        return jdbcTemplate.query(sql,
+                (rs, rowNum) -> {
                     Student s = new Student();
                     s.setId(rs.getLong("id"));
                     s.setName(rs.getString("name"));
                     s.setAge(rs.getInt("age"));
                     return s;
-                }
+                },
+                offset, size
         );
+    }
+
+    public int count() {
+        String sql = "SELECT COUNT(*) FROM student";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     public Student getStudent(Long id) {
