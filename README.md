@@ -156,11 +156,8 @@ java -jar build\libs\javaexamples-1.0-SNAPSHOT.jar java -jar build\libs\javaexam
 ### Method 02 - With out jar ###
 ./gradlew bootRun ./gradlew bootRun --args='--spring.profiles.active=dev' ./gradlew bootRun --args='--spring.profiles.active=prod'
 
-### Rest API Command ###
 To Make a build -> ./gradlew clean build 
 To start spring embedded tomcat -> java -jar build\libs\javaexamples-1.0-SNAPSHOT.jar 
-To get records (HTTP Request) -> http://localhost:8080/students 
-To delete a student record (HTTP Request) -> http://localhost:8080/deletestudents/{id}
 
 ----------------------------------- 
 # Exception - Scenario 01 #
