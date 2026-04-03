@@ -96,43 +96,25 @@ Deletes a student record based on student ID.
 
 ------------------------------------------------------------
 
-Update Student Flow (Under Development)
+Update Student Flow
 ---------------------------------------
 
 URL:
 /web/updateStudent/{id}
 
-Intended Flow:
+Flow:
 
 Browser
 ↓
 Load Page → /web/updateStudent/{id}
 ↓
-JS Fetch → GET /api/GetStudent/{id}
+GET /api/GetStudent/{id}
 ↓
 Populate Form Fields
 ↓
-JS Fetch → PUT /api/updateStudent/{id}
+PUT /api/updateStudent/{id}
 ↓
 StudentService → Database
-
-Current Status:
-Under Development — Not Functional
-
-Reason:
-
-Partial integration between frontend JavaScript Fetch API and backend REST update endpoint.
-Request mapping and request body handling require refinement.
-
-------------------------------------------------------------
-
-Current Feature Status
-----------------------
-
-View Students — Implemented
-Insert Student — Implemented
-Delete Student — Implemented
-Update Student — Under Development
 
 ------------------------------------------------------------
 
@@ -161,7 +143,8 @@ Config Files: yml , json
 
 Version Control: Git (Bitbucket / GitHub)
 
-Total profiles = 3 (default, prod and dev) If profile not specified in execution command, then system will load application-default.yml (configured in .pro file)
+Total profiles = 3 (default, prod and dev) 
+If profile not specified in execution command, then system will load application-default.yml (configured in .pro file)
 
  
 Commands to execute on the terminal
@@ -174,7 +157,10 @@ java -jar build\libs\javaexamples-1.0-SNAPSHOT.jar java -jar build\libs\javaexam
 ./gradlew bootRun ./gradlew bootRun --args='--spring.profiles.active=dev' ./gradlew bootRun --args='--spring.profiles.active=prod'
 
 ### Rest API Command ###
-To Make a build -> ./gradlew clean build To start spring embedded tomcat -> java -jar build\libs\javaexamples-1.0-SNAPSHOT.jar To get records (HTTP Request) -> http://localhost:8080/students To delete a student record (HTTP Request) -> http://localhost:8080/deletestudents/{id}
+To Make a build -> ./gradlew clean build 
+To start spring embedded tomcat -> java -jar build\libs\javaexamples-1.0-SNAPSHOT.jar 
+To get records (HTTP Request) -> http://localhost:8080/students 
+To delete a student record (HTTP Request) -> http://localhost:8080/deletestudents/{id}
 
 ----------------------------------- 
 # Exception - Scenario 01 #
