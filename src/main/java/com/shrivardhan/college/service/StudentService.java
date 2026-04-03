@@ -15,8 +15,12 @@ public class StudentService {
         this.repository = repository;
     }
 
-    public List<Student> getStudents() {
-        return repository.findAll();
+    public List<Student> getStudents(int offset, int size) {
+        return repository.findAll(offset, size);
+    }
+
+    public int getTotalCount() {
+        return repository.count();
     }
 
     public int insertStudent(Student student) {
