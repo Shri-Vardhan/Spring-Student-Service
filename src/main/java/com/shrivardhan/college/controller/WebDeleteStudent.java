@@ -28,7 +28,7 @@ public class WebDeleteStudent {
     public String processDeleteStudent(@RequestParam Long id, Model model) {
         String url = deleteUrl + "/" + id;
         String forObject = restTemplate.getForObject(url, String.class);
-        
+
         model.addAttribute("message", forObject);
         return "deleteStudent";
     }
