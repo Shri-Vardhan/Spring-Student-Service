@@ -1,185 +1,142 @@
-Student Management System
--------------------------
--------------------------
-Overview
---------
+# College Student Management System
+> Spring Boot REST API • Oracle DB • JdbcTemplate
 
-This project is an enterprise-grade Spring Boot REST API built using Spring JDBC for database interactions. It is designed following real-world company standards with clear separation of environments (dev / prod), secure configuration management, containerized deployment using Docker, and CI/CD integration via Jenkins.
+![Java](https://img.shields.io/badge/Java-25-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.1-green) ![Oracle](https://img.shields.io/badge/Oracle-PDB-red)
 
-The application exposes RESTful endpoints, connects to a relational database using JDBC templates, and supports profile-based configuration for development and production environments.
+## Overview
 
-System Architecture
--------------------
+A production-structured Spring Boot REST application that performs full CRUD operations on student records stored in an Oracle Pluggable Database (PDB). Designed to mirror real enterprise Java backends — with a clean layered architecture, environment-aware configuration via Spring Profiles, structured logging with Log4j, and both REST API and Thymeleaf-based web interfaces.
 
-Browser (HTML + Thymeleaf + JavaScript)
-↓
-Web Controllers
-↓
-REST APIs
-↓
-Service Layer
-↓
-Database
+---
 
-------------------------------------------------------------
+## Architecture
 
-Complete Application Flow
--------------------------
+| Layer | Package | Responsibility |
+|-------|---------|----------------|
+| Controller | `com.shrivardhan.college.controller` | Exposes REST endpoints and web MVC routes |
+| Service | `com.shrivardhan.college.service` | Business logic, validation, exception handling |
+| Repository | `com.shrivardhan.college.repository` | JdbcTemplate SQL queries against Oracle PDB |
+| Model | `com.shrivardhan.college.model` | Java objects for DB row mapping |
 
-URL:
-/web/viewStudents
+---
 
-Flow:
+## Tech Stack
 
-Browser
-↓
-Web Controller (/web/viewStudents)
-↓
-REST API → /api/viewStudents
-↓
-StudentService → Database
-↓
-JSON Response
-↓
-Converted → List<Student>
-↓
-Thymeleaf → HTML Table
+| Technology | Details |
+|-----------|---------|
+| Java | 25 (via Gradle toolchain) |
+| Spring Boot | 4.0.1 — embedded Tomcat |
+| Spring JDBC | JdbcTemplate — explicit SQL, no ORM overhead |
+| Oracle DB | Oracle PDB 21c (`ojdbc11:23.3.0.23.09`) |
+| Thymeleaf | Server-side HTML templating |
+| Log4j | Structured application logging |
+| Gradle | Build tool |
+| Spring Profiles | Environment-specific configuration (dev / prod) |
 
-Purpose:
-Displays all students in a tabular format using Thymeleaf.
+---
 
-------------------------------------------------------------
+## REST API Reference
 
-Insert Student Flow
--------------------
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/viewStudents` | List students with pagination (`?page=0&size=10`) |
+| `GET` | `/api/viewStudents/count` | Return total student count |
+| `GET` | `/api/GetStudent/{id}` | Retrieve a student by ID |
+| `POST` | `/api/insertStudent` | Insert a new student (JSON body) |
+| `PUT` | `/api/updateStudent` | Update student name and age (JSON body) |
+| `GET` | `/api/deleteStudent/{id}` | Delete a student by ID |
 
-URL:
-/web/insertStudent
+---
 
-Flow:
+## Prerequisites
 
-Browser Form
-↓
-Web Controller (/web/insertStudent)
-↓
-REST API → /api/insertStudent
-↓
-StudentService → Database
-↓
-Success Response → UI
+- Java 25+
+- Gradle 8+
+- Oracle Database PDB accessible on the network
 
-Purpose:
-Creates a new student record using REST-based backend communication.
+---
 
-------------------------------------------------------------
+## Getting Started
 
-Delete Student Flow
--------------------
+### 1. Clone the Repository
 
-URL:
-/web/deleteStudent
+```bash
+git clone https://github.com/shrivardhan/college-student-management.git
+cd college-student-management
+```
 
-Flow:
+### 2. Configure the Database
 
-Browser Form
-↓
-Web Controller (/web/deleteStudent)
-↓
-REST API → /api/deleteStudent/{id}
-↓
-StudentService → Database
-↓
-Deletion Confirmation → UI
+Edit the appropriate profile config under `src/main/resources/`:
 
-Purpose:
-Deletes a student record based on student ID.
+```yaml
+# application-dev.yml
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//192.168.0.120:1521/ORCLPDB
+    username: dev_user
+    password: dev_pass
+    driver-class-name: oracle.jdbc.OracleDriver
+```
 
-------------------------------------------------------------
+### 3. Create the Student Table
 
-Update Student Flow
----------------------------------------
+```sql
+CREATE TABLE student (
+  id   NUMBER PRIMARY KEY,
+  name VARCHAR2(100),
+  age  NUMBER
+);
+```
 
-URL:
-/web/updateStudent/{id}
+### 4. Build and Run
 
-Flow:
+```bash
+# Run with dev profile
+./gradlew bootRun --args='--spring.profiles.active=dev'
 
-Browser
-↓
-Load Page → /web/updateStudent/{id}
-↓
-GET /api/GetStudent/{id}
-↓
-Populate Form Fields
-↓
-PUT /api/updateStudent/{id}
-↓
-StudentService → Database
+# Or build a JAR
+./gradlew build
+java -jar build/libs/college-1.0-SNAPSHOT.jar --spring.profiles.active=prod
+```
 
-------------------------------------------------------------
+### 5. Access the Application
 
-Technology Stack
-----------------
+- REST API: `http://localhost:8080/api`
+- Web UI: `http://localhost:8080/web/viewStudents`
 
-Java: 17
+---
 
-Spring Boot: 3.x
+## Exception Handling
 
-Spring JDBC (JdbcTemplate)
+A global `@RestControllerAdvice` returns structured JSON error responses:
 
-REST API (Spring Web)
+| Exception | HTTP Status | When Thrown |
+|-----------|-------------|-------------|
+| `StudentAlreadyExistsException` | 409 CONFLICT | Student ID already exists |
+| `StudentNotFoundException` | 404 NOT FOUND | Requested ID does not exist |
+| `DataAccessResourceFailureException` | 503 UNAVAILABLE | Cannot reach Oracle DB |
 
-Database: Oracle Pluggable DB (Dev-Server)
+---
 
-Build Tool: Gradle
+## Spring Profiles
 
-Logging Tool: log4j | slf4j
+| Profile | Config File | For |
+|---------|-------------|-----|
+| default | `application.yml` | Shared / fallback |
+| dev | `application-dev.yml` | Local development VM |
+| prod | `application-prod.yml` | Production Oracle PDB |
 
-Containerization: Docker
+---
 
-CI/CD: Jenkins
+## Deployment Topology
 
-Config Files: yml , json
+Runs across two Virtual Machines:
 
-Version Control: Git (Bitbucket / GitHub)
+- **VM 1 (Linux):** Oracle Database PDB — listener on port `1521`
+- **VM 2 (Windows):** Spring Boot app — connects to remote Oracle PDB via JDBC
 
-Total profiles = 3 (default, prod and dev) 
-If profile not specified in execution command, then system will load application-default.yml (configured in .pro file)
+---
 
- 
-Commands to execute on the terminal
------------------------------------
-### Method 01 - Creating Jar then executing ###
-./gradlew clean build
-java -jar build\libs\javaexamples-1.0-SNAPSHOT.jar java -jar build\libs\javaexamples-1.0-SNAPSHOT.jar --spring.profiles.active=dev
-
-### Method 02 - With out jar ###
-./gradlew bootRun ./gradlew bootRun --args='--spring.profiles.active=dev' ./gradlew bootRun --args='--spring.profiles.active=prod'
-
-To Make a build -> ./gradlew clean build 
-To start spring embedded tomcat -> java -jar build\libs\javaexamples-1.0-SNAPSHOT.jar 
-
------------------------------------ 
-# Exception - Scenario 01 #
-
-{
-"timestamp": "2026-02-13T21:45:11.9826378",
-"status": 409,
-"error": "CONFLICT",
-"message": "Student with ID 105 already exists",
-"path": "/insertstudents"
-}
-
-# Exception - Scenario 02 #
-Expected output on the browser - when DB is not available
-
-{
-"timestamp": "2026-02-13T21:50:28.3937278",
-"status": 503,
-"error": "SERVICE_UNAVAILABLE",
-"message": "Failed to obtain JDBC Connection",
-"path": "/students"
-}
-
-
-
+## Project Structure
+src/main/java/com/shrivardhan/college/ ├── controller/ ├── service/ ├── repository/ ├── model/ └── exception/ src/main/resources/ ├── features ├── static ├── application.yml ├── application-dev.yml ├── application-prod.yml └── templates/

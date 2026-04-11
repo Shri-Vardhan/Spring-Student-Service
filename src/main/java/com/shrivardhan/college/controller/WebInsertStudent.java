@@ -30,6 +30,7 @@ public class WebInsertStudent {
 
 package com.shrivardhan.college.controller;
 
+import com.shrivardhan.college.exception.StudentAlreadyExistsException;
 import com.shrivardhan.college.model.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
