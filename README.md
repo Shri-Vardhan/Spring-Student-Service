@@ -139,4 +139,16 @@ Runs across two Virtual Machines:
 ---
 
 ## Project Structure
-src/main/java/com/shrivardhan/college/ ├── controller/ ├── service/ ├── repository/ ├── model/ └── exception/ src/main/resources/ ├── features ├── static ├── application.yml ├── application-dev.yml ├── application-prod.yml └── templates/
+src/main/java/com/shrivardhan/college/ 
+├── controller/ 
+├── service/ 
+├── repository/ 
+├── model/ 
+└── exception/ 
+src/main/resources/ 
+├── features 
+├── static 
+├── application.yml 
+├── application-dev.yml 
+├── application-prod.yml 
+└── templates/
