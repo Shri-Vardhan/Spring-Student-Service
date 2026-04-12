@@ -1,5 +1,12 @@
 spring:
   datasource:
-    username: dev_user
-    password: dev_pass
+    url: jdbc:oracle:thin:@//192.168.0.120:1521/ORCLPDB
+    username: vnrvjiet
+    password: vnr
     driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # creates/updates table automatically
+    show-sql: true       # prints SQL in console
+    database-platform: org.hibernate.dialect.OracleDialect

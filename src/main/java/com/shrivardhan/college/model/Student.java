@@ -1,8 +1,16 @@
 package com.shrivardhan.college.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "student")
 public class Student {
+
+    @Id
     private Long id;
+
     private String name;
+
     private Integer age;
 
     public Long getId() {
