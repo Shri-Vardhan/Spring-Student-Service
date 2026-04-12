@@ -1,4 +1,4 @@
-# College Student Management System
+# Student Management System
 > Spring Boot REST API • Oracle DB • JdbcTemplate
 
 ![Java](https://img.shields.io/badge/Java-25-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.1-green) ![Oracle](https://img.shields.io/badge/Oracle-PDB-red)
