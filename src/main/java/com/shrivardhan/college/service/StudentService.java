@@ -42,4 +42,19 @@ public class StudentService {
         student.setAge(age);
         return repository.save(student);
     }
+
+    //Method-Name
+    public List<Student> getStudentsByNameAndAge(String name, int age) {
+        return repository.findByNameAndAgeGreaterThan(name, age);
+    }
+
+   //JPQL
+    public List<Student> getStudentsJPLquery(String name, int age) {
+        return repository.findStudents(name, age);
+    }
+
+    //Native-SQL
+    public List<Student> getStudentsNative(String name, int age) {
+        return repository.findStudentNative(name, age);
+    }
 }

@@ -48,4 +48,36 @@ public class StudentRestController {
         studentService.deleteStudent(id);
         return "Student deleted successfully";
     }
+
+    /***************************************************************************************
+     **************************************************************************************
+     **************************************************************************************
+     ***************************************************************************************/
+
+    //Method-Name
+    @GetMapping("/search")
+    public List<Student> searchStudents(
+            @RequestParam String name,
+            @RequestParam int age
+    ) {
+        return studentService.getStudentsByNameAndAge(name, age);
+    }
+
+    //JPL-Query
+    @GetMapping("/search-JPLquery")
+    public List<Student> searchJPLquery(
+            @RequestParam String name,
+            @RequestParam int age
+    ) {
+        return studentService.getStudentsJPLquery(name, age);
+    }
+
+    //Native-SQL
+    @GetMapping("/search-native")
+    public List<Student> searchNative(
+            @RequestParam String name,
+            @RequestParam int age
+    ) {
+        return studentService.getStudentsNative(name, age);
+    }
 }
