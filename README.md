@@ -73,7 +73,7 @@ Edit the appropriate profile config under `src/main/resources/`:
 # application-dev.yml
 spring:
   datasource:
-    url: jdbc:oracle:thin:@//192.168.0.120:1521/ORCLPDB
+    url: jdbc:oracle:thin:@//***.***.*.***:****/ORCLPDB
     username: dev_user
     password: dev_pass
     driver-class-name: oracle.jdbc.OracleDriver
@@ -99,11 +99,6 @@ CREATE TABLE student (
 ./gradlew build
 java -jar build/libs/college-1.0-SNAPSHOT.jar --spring.profiles.active=prod
 ```
-
-### 5. Access the Application
-
-- REST API: `http://localhost:8080/api`
-- Web UI: `http://localhost:8080/web/viewStudents`
 
 ---
 
